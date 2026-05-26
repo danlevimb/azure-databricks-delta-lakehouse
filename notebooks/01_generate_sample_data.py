@@ -1,10 +1,4 @@
 # Databricks notebook source
-# #%%
-
-print("ADLS Gen2 temporary Spark access configured")
-# %%
-# COMMAND ----------
-
 from pyspark.sql import functions as F
 from pyspark.sql import Row
 from datetime import datetime
@@ -19,6 +13,7 @@ print(f"Landing base path: {landing_base_path}")
 print(f"Source base path: {source_base_path}")
 
 # %%
+
 # COMMAND ----------
 
 def write_single_csv(df, target_file_path: str):
@@ -50,12 +45,14 @@ def write_single_csv(df, target_file_path: str):
     print(f"Written: {target_file_path}")
 
 #%%
+
 # COMMAND ----------
 
 dbutils.fs.rm(source_base_path, recurse=True)
 print(f"Cleaned source path: {source_base_path}")
 
 #%%
+
 # COMMAND ----------
 
 batch_001_path = f"{source_base_path}/batch_001"
@@ -95,6 +92,7 @@ write_single_csv(orders_001, f"{batch_001_path}/orders.csv")
 write_single_csv(order_items_001, f"{batch_001_path}/order_items.csv")
 
 #%%
+
 # COMMAND ----------
 
 batch_002_path = f"{source_base_path}/batch_002"
@@ -121,6 +119,7 @@ write_single_csv(orders_002, f"{batch_002_path}/orders.csv")
 write_single_csv(order_items_002, f"{batch_002_path}/order_items.csv")
 
 #%%
+
 # COMMAND ----------
 
 batch_003_path = f"{source_base_path}/batch_003_schema_evolution"
@@ -148,6 +147,7 @@ write_single_csv(orders_003, f"{batch_003_path}/orders.csv")
 write_single_csv(order_items_003, f"{batch_003_path}/order_items.csv")
 
 #%%
+
 # COMMAND ----------
 
 for batch_dir in dbutils.fs.ls(source_base_path):
@@ -155,6 +155,7 @@ for batch_dir in dbutils.fs.ls(source_base_path):
     for file in dbutils.fs.ls(batch_dir.path):
         print(f"  - {file.name}")
 #%%
+
 # COMMAND ----------
 
 sample_customers = (

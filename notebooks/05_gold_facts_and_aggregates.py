@@ -1,9 +1,11 @@
 # Databricks notebook source
-#%%
 # DBTITLE 1,Base config
+
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
+
+storage_account = "stdanadblh4827"
 
 silver_base_path = f"abfss://silver@{storage_account}.dfs.core.windows.net/delta_lakehouse"
 gold_base_path = f"abfss://gold@{storage_account}.dfs.core.windows.net/delta_lakehouse"
@@ -12,7 +14,6 @@ print("Gold facts and aggregates configuration loaded")
 print(f"Silver path: {silver_base_path}")
 print(f"Gold path: {gold_base_path}")
 
-#%%
 # COMMAND ----------
 
 # DBTITLE 1,Helpers
@@ -49,6 +50,7 @@ def add_batch_sequence(df):
     )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Silver/Gold Read
@@ -66,6 +68,7 @@ print(f"gold_dim_customer_scd2: {gold_dim_customer_scd2.count()}")
 print(f"gold_dim_product: {gold_dim_product.count()}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get latest order state
@@ -103,6 +106,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get latest item state
@@ -138,6 +142,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Add order items
@@ -156,6 +161,7 @@ order_item_agg = (
 display(order_item_agg.orderBy("order_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Build gold_fact_orders
@@ -231,6 +237,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate Fact duplicates
@@ -242,6 +249,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate fact -customer SCD2
@@ -270,6 +278,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Build gold_daily_sales_summary
@@ -304,6 +313,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Build gold_customer_sales_summary
@@ -349,6 +359,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Final Gold-summary
@@ -375,6 +386,7 @@ gold_summary_df = spark.createDataFrame(summary_rows)
 display(gold_summary_df.orderBy("table_name"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Gold - Delta history

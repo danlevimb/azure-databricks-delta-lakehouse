@@ -1,11 +1,10 @@
 # Databricks notebook source
-# %%
-# COMMAND ----------
-
 # DBTITLE 1,Base config
 from pyspark.sql import functions as F
 from functools import reduce
 from delta.tables import DeltaTable
+
+storage_account = "stdanadblh4827"
 
 landing_base_path = f"abfss://landing@{storage_account}.dfs.core.windows.net"
 bronze_base_path = f"abfss://bronze@{storage_account}.dfs.core.windows.net/delta_lakehouse"
@@ -30,6 +29,7 @@ print(f"Source path: {source_base_path}")
 print(f"Bronze path: {bronze_base_path}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Helper's
@@ -76,6 +76,7 @@ def add_bronze_metadata(df, entity_name: str, batch_id: str, source_path: str):
     )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Clean Bronze container
@@ -83,6 +84,7 @@ dbutils.fs.rm(bronze_base_path, recurse=True)
 print(f"Cleaned Bronze project path: {bronze_base_path}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Bronze ingestion
@@ -139,6 +141,7 @@ for entity in entities:
         print(f"No files found for entity: {entity}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Ingestion resume
@@ -147,6 +150,7 @@ bronze_summary_df = spark.createDataFrame(bronze_results)
 display(bronze_summary_df.orderBy("entity", "batch_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Bronze tables validation
@@ -166,6 +170,7 @@ for entity in entities:
     )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Customers schema validation bronze evolution
@@ -193,6 +198,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Delta history

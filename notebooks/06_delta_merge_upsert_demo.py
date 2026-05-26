@@ -1,10 +1,10 @@
 # Databricks notebook source
-#%%
-
 # DBTITLE 1,Base config
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
 from pyspark.sql import Row
+
+storage_account = "stdanadblh4827"
 
 gold_base_path = f"abfss://gold@{storage_account}.dfs.core.windows.net/delta_lakehouse"
 gold_dim_product_path = f"{gold_base_path}/gold_dim_product"
@@ -13,6 +13,7 @@ print("Delta MERGE / upsert demo configuration loaded")
 print(f"Target Delta path: {gold_dim_product_path}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Check Products - actual state
@@ -32,6 +33,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Build Products - Incremental batch
@@ -87,6 +89,7 @@ product_updates_prepared = (
 display(product_updates_prepared.orderBy("product_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Exec - MERGE / upsert
@@ -135,6 +138,7 @@ target_delta_table = DeltaTable.forPath(spark, gold_dim_product_path)
 print("Delta MERGE / upsert completed")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate MERGE result
@@ -156,6 +160,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate count
@@ -168,6 +173,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,MERGE - Delta history
@@ -187,6 +193,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate MERGE operation

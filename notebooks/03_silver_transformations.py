@@ -1,7 +1,4 @@
 # Databricks notebook source
-#%%
-# COMMAND ----------
-
 # DBTITLE 1,Base config
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
@@ -17,6 +14,7 @@ print(f"Bronze path: {bronze_base_path}")
 print(f"Silver path: {silver_base_path}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Helpers
@@ -81,12 +79,14 @@ def build_rejected_records(df, entity_name: str):
     )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Clean previous Silver
 dbutils.fs.rm(silver_base_path, recurse=True)
 print(f"Cleaned Silver project path: {silver_base_path}")
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Customers Silver
@@ -133,6 +133,7 @@ write_silver(silver_customers_clean, "silver_customers_clean")
 display(silver_customers_clean.orderBy("customer_id", "effective_update_ts"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Products Silver
@@ -176,6 +177,7 @@ write_silver(silver_products_clean, "silver_products_clean")
 display(silver_products_clean.orderBy("product_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Orders Silver
@@ -243,6 +245,7 @@ write_silver(silver_orders_clean, "silver_orders_clean")
 display(silver_orders_clean.orderBy("order_id", "ingestion_batch_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,OrderItems Silver
@@ -324,6 +327,7 @@ write_silver(silver_order_items_clean, "silver_order_items_clean")
 display(silver_order_items_clean.orderBy("order_id", "product_id"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Rejected records
@@ -344,6 +348,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Silver summary
@@ -370,6 +375,7 @@ silver_summary_df = spark.createDataFrame(summary_rows)
 display(silver_summary_df.orderBy("table_name"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validators
@@ -401,6 +407,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Silver - Delta History

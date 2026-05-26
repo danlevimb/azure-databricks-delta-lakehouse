@@ -1,11 +1,11 @@
 # Databricks notebook source
-#%%
-
 # DBTITLE 1,Base config
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 from datetime import datetime
+
+storage_account = "stdanadblh4827"
 
 bronze_base_path = f"abfss://bronze@{storage_account}.dfs.core.windows.net/delta_lakehouse"
 silver_base_path = f"abfss://silver@{storage_account}.dfs.core.windows.net/delta_lakehouse"
@@ -18,6 +18,7 @@ print("Data quality validation notebook loaded")
 print(f"Validation run id: {validation_run_id}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Helpers
@@ -55,6 +56,7 @@ def table_count(path: str):
     return read_delta(path).count()
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Project - Table definitions
@@ -80,6 +82,7 @@ tables = {
 print("Project Delta tables configured")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Base count - Validation
@@ -129,6 +132,7 @@ row_count_validation_df = spark.createDataFrame(count_rows)
 display(row_count_validation_df.orderBy("table_name"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Rejected records - Validation
@@ -185,6 +189,7 @@ rejection_validation_df = spark.createDataFrame(rejection_rows)
 display(rejection_validation_df.orderBy("entity_name", "reject_reason"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Gold Fact - No duplicates
@@ -211,6 +216,7 @@ add_validation_result(
 display(duplicate_orders)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,SCD2 - One version per customer - Validation
@@ -247,6 +253,7 @@ add_validation_result(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,SCD2 - Historic dates - Validation
@@ -272,6 +279,7 @@ add_validation_result(
 display(invalid_scd2_dates)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Duplicate products (after MERGE) - Validation
@@ -298,6 +306,7 @@ add_validation_result(
 display(duplicate_products)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,PROD 2 & 5 before MERGE - Validation
@@ -349,6 +358,7 @@ add_validation_result(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Fact orders vs Customer SCD2 - Validation
@@ -371,6 +381,7 @@ add_validation_result(
 display(fact_orders_missing_customer_sk)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Consistency Revenue vs Fact - Validation
@@ -409,6 +420,7 @@ revenue_validation_df = spark.createDataFrame([
 display(revenue_validation_df)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Delta history contains MERGE - Validation
@@ -439,6 +451,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Consolidate Report Consolidation
@@ -458,6 +471,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,PASS / FAIL Summary
@@ -471,6 +485,7 @@ validation_status_summary = (
 display(validation_status_summary)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validation Report - Metadata save
@@ -487,6 +502,7 @@ validation_report_path = f"{metadata_base_path}/validation_reports/run_id={valid
 print(f"Validation report written to: {validation_report_path}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get - Validation report

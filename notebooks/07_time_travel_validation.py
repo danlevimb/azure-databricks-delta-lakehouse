@@ -1,9 +1,9 @@
 # Databricks notebook source
-#%%
-
 # DBTITLE 1,Base config
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
+
+storage_account = "stdanadblh4827"
 
 gold_base_path = f"abfss://gold@{storage_account}.dfs.core.windows.net/delta_lakehouse"
 gold_dim_product_path = f"{gold_base_path}/gold_dim_product"
@@ -11,7 +11,6 @@ gold_dim_product_path = f"{gold_base_path}/gold_dim_product"
 print("Delta time travel validation loaded")
 print(f"Target Delta path: {gold_dim_product_path}")
 
-#%%
 # COMMAND ----------
 
 # DBTITLE 1,Check Delta history
@@ -33,6 +32,7 @@ history_df = (
 display(history_df)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get available versions
@@ -62,6 +62,7 @@ print(f"Latest version: {latest_version}")
 print(f"Latest MERGE version: {latest_merge_version}")
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get initial version
@@ -86,6 +87,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Get actual version
@@ -110,6 +112,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,View - Version count
@@ -131,6 +134,7 @@ version_counts = spark.createDataFrame([
 display(version_counts.orderBy("delta_version"))
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate - Product change
@@ -162,6 +166,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,Validate - New product
@@ -190,6 +195,7 @@ product_insert_validation = spark.createDataFrame([
 display(product_insert_validation)
 
 #%%
+
 # COMMAND ----------
 
 # DBTITLE 1,View - Affected products
@@ -239,6 +245,7 @@ display(
 )
 
 #%%
+
 # COMMAND ----------
 
 # MAGIC %md

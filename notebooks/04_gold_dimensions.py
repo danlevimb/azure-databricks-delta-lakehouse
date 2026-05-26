@@ -1,6 +1,4 @@
 # Databricks notebook source
-# %%
-
 # DBTITLE 1,Base config
 from delta.tables import DeltaTable
 from pyspark.sql import functions as F
