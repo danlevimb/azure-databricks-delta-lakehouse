@@ -16,4 +16,8 @@ print("Metadata: " + metadata_base_path)
 
 # COMMAND ----------
 
-display(dbutils.fs.ls(landing_base_path + "/source_data"))
+display(
+    dbutils.fs.ls
+    (
+        landing_base_path + "/source_data"
+    ))
