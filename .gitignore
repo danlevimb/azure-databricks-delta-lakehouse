@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+
+# Databricks / local exports
+*.dbc
+
+# Secrets / credentials
+*.key
+*.pem
+*.pfx
+*.env
+.env
+local.settings.json
+secrets.json
+credentials.json
+
+# Azure / local config
+.azure/
+.azcopy/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+*.log
+
+# Screenshots with sensitive data should be reviewed before commit
+*_secret*
+*_key*
+*_credential*
