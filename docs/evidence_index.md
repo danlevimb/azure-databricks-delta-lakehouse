@@ -83,14 +83,14 @@ This evidence demonstrate that the controlled source files were generated in the
 
 This evidence demonstrate that raw source files were converted into Bronze Delta tables with technical metadata.
 
-| File | Description | Required |
-|---|---|---|
-| `01_bronze_ingestion_summary.png` | Bronze ingestion summary by entity and batch | Required |
-| `02_bronze_customers_schema_evolution.png` | Bronze customers showing `loyalty_tier` preserved | Required |
-| `03_bronze_table_folders.png` | ADLS or Databricks listing of Bronze Delta table folders | Optional |
-| `04_bronze_delta_history.png` | Delta history for at least one Bronze table | Required |
+| File | Description |
+|------|-------------|
+| `01_bronze_ingestion_summary.png` | Bronze ingestion summary by entity and batch |
+| `02_bronze_customers_schema_evolution.png` | Bronze customers showing `loyalty_tier` preserved |
+| `03_bronze_table_folders.png` | ADLS or Databricks listing of Bronze Delta table folders |
+| `04_bronze_delta_history.png` | Delta history for at least one Bronze table |
 
-#### What this evidence proves:
+#### This evidence proves:
 
 This evidence proves:
 
@@ -100,38 +100,19 @@ This evidence proves:
 - Schema evolution was preserved in Bronze.
 - Delta transaction logs exist for Bronze outputs.
 
-#### Suggested Validation Points
-
-Evidence should show or support:
-
-| Table | Expected row count |
-|---|---:|
-| `bronze_customers` | 9 |
-| `bronze_products` | 4 |
-| `bronze_orders` | 10 |
-| `bronze_order_items` | 11 |
-
 ### 04. Silver Layer
-
-Folder:
-
-`evidence/04_silver_layer/`
 
 This evidence should demonstrate that Silver transformations created clean records and rejected invalid records.
 
-#### Recommended Screenshots
+| File | Description |
+|------|-------------|
+| `01_silver_summary.png` | Silver table row-count summary |
+| `02_rejected_records_summary.png` | Rejected records grouped by entity and reason |
+| `03_silver_orders_clean.png` | Valid Silver orders preview |
+| `04_silver_order_items_clean.png` | Valid Silver order items preview |
+| `05_silver_delta_history.png` | Delta history for Silver outputs |
 
-| File | Description | Required |
-|---|---|---|
-| `01_silver_summary.png` | Silver table row-count summary | Required |
-| `02_rejected_records_summary.png` | Rejected records grouped by entity and reason | Required |
-| `03_silver_orders_clean.png` | Valid Silver orders preview | Optional |
-| `04_silver_order_items_clean.png` | Valid Silver order items preview | Optional |
-| `05_silver_delta_history.png` | Delta history for Silver outputs | Optional |
-
-#### What this evidence proves:
-
-This evidence proves:
+#### This evidence proves:
 
 - Bronze data was transformed into typed and validated Silver tables.
 - Invalid records were separated into `silver_rejected_records`.
