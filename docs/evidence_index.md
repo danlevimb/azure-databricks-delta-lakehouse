@@ -1,0 +1,491 @@
+# Evidence Index
+
+This document defines the evidence package for the `azure-databricks-delta-lakehouse` project.
+
+The purpose of this evidence index is to organize screenshots and validation artifacts that demonstrate the project was implemented, executed, validated, and documented in Azure Databricks.
+
+Evidence should be reviewed before committing to ensure that no secrets, keys, tokens, connection strings, personal data, or sensitive Azure identifiers are exposed.
+
+### 1. Evidence Strategy
+
+The project uses evidence to support the main technical claims made in the repository.
+
+The evidence package should demonstrate:
+
+- Azure Databricks workspace and compute setup
+- Secure ADLS Gen2 access without notebook-embedded secrets
+- Source data generation
+- Bronze Delta table creation
+- Silver data quality validation
+- Rejected records handling
+- Gold dimensional model
+- SCD Type 2 customer history
+- Gold fact and aggregate tables
+- Delta MERGE / upsert
+- Delta time travel validation
+- Final data quality validation report
+- Cost-control configuration
+
+#### Evidence Principles
+
+Evidence should be:
+
+- Clear
+- Minimal
+- Relevant
+- Public-safe
+- Easy to map to documentation
+- Free of credentials or secrets
+- Captured after the pipeline has been successfully executed from the Databricks Git Folder
+
+#### Evidence Naming Convention
+
+Use the following naming pattern:
+
+| Pattern | Example |
+|---|---|
+| `<number>_<short_description>.png` | `01_compute_configuration.png` |
+| `<number>_<short_description>.png` | `02_environment_setup_success.png` |
+| `<number>_<short_description>.png` | `03_validation_report_pass.png` |
+
+Recommended style:
+
+- Use lowercase file names.
+- Use underscores instead of spaces.
+- Keep names descriptive but concise.
+- Avoid including dates unless needed.
+- Avoid screenshots that expose secrets, keys, or tokens.
+
+### 2. Evidence Folder Structure
+
+Evidence is organized under the `evidence/` directory.
+
+Expected structure:
+
+| Folder | Purpose |
+|---|---|
+| `evidence/01_environment_setup/` | Workspace, compute, Git Folder, and ADLS access validation |
+| `evidence/02_source_data_generation/` | Source files generated in the landing container |
+| `evidence/03_bronze_layer/` | Bronze Delta tables and Delta history |
+| `evidence/04_silver_layer/` | Silver clean tables and rejected records |
+| `evidence/05_gold_dimensions/` | Customer SCD2 and product dimension |
+| `evidence/06_gold_facts/` | Fact table and analytical summaries |
+| `evidence/07_delta_merge/` | Delta MERGE / upsert validation |
+| `evidence/08_time_travel/` | Versioned reads and before/after comparison |
+| `evidence/09_data_quality_validation/` | Final validation report |
+| `evidence/10_cost_controls/` | Compute auto-termination and cost-control settings |
+
+### 3. Environment Setup Evidence
+
+Folder:
+
+`evidence/01_environment_setup/`
+
+This evidence should demonstrate that the project environment was created and that the notebooks can run from the Databricks Git Folder.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_databricks_workspace_created.png` | Azure Databricks workspace overview or confirmation | Optional |
+| `02_compute_configuration.png` | Databricks compute configuration showing runtime, single-node mode, and auto-termination | Required |
+| `03_git_folder_connected.png` | Databricks Git Folder connected to the GitHub repository | Required |
+| `04_environment_setup_success.png` | `00_environment_setup` notebook successfully listing ADLS source data | Required |
+| `05_adls_containers.png` | ADLS Gen2 containers used by the project | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The project uses Azure Databricks.
+- The notebooks are executed from a Git-integrated Databricks folder.
+- The compute can access ADLS Gen2 without storage keys inside notebooks.
+- The environment is ready to execute the Lakehouse pipeline.
+
+#### Public Safety Notes
+
+Before committing screenshots, verify that they do not expose:
+
+- Storage account keys
+- Access tokens
+- Connection strings
+- Secret values
+- Full billing details
+- Personal access tokens
+
+### 4. Source Data Generation Evidence
+
+Folder:
+
+`evidence/02_source_data_generation/`
+
+This evidence should demonstrate that the controlled source files were generated in the `landing` container.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_source_data_folders.png` | ADLS or Databricks listing showing `batch_001`, `batch_002`, and `batch_003_schema_evolution` | Required |
+| `02_batch_001_files.png` | Source files generated for `batch_001` | Optional |
+| `03_generate_sample_data_success.png` | Successful output of `01_generate_sample_data` notebook | Required |
+| `04_sample_customers_preview.png` | Preview of generated customer source data | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The sample dataset was generated successfully.
+- The landing zone contains multiple source batches.
+- The project has controlled input data for Bronze, Silver, and Gold processing.
+
+### 5. Bronze Layer Evidence
+
+Folder:
+
+`evidence/03_bronze_layer/`
+
+This evidence should demonstrate that raw source files were converted into Bronze Delta tables with technical metadata.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_bronze_ingestion_summary.png` | Bronze ingestion summary by entity and batch | Required |
+| `02_bronze_customers_schema_evolution.png` | Bronze customers showing `loyalty_tier` preserved | Required |
+| `03_bronze_table_folders.png` | ADLS or Databricks listing of Bronze Delta table folders | Optional |
+| `04_bronze_delta_history.png` | Delta history for at least one Bronze table | Required |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- Source CSV files were ingested into Delta tables.
+- Bronze preserves source data with traceability.
+- Technical metadata was added.
+- Schema evolution was preserved in Bronze.
+- Delta transaction logs exist for Bronze outputs.
+
+#### Suggested Validation Points
+
+Evidence should show or support:
+
+| Table | Expected row count |
+|---|---:|
+| `bronze_customers` | 9 |
+| `bronze_products` | 4 |
+| `bronze_orders` | 10 |
+| `bronze_order_items` | 11 |
+
+### 6. Silver Layer Evidence
+
+Folder:
+
+`evidence/04_silver_layer/`
+
+This evidence should demonstrate that Silver transformations created clean records and rejected invalid records.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_silver_summary.png` | Silver table row-count summary | Required |
+| `02_rejected_records_summary.png` | Rejected records grouped by entity and reason | Required |
+| `03_silver_orders_clean.png` | Valid Silver orders preview | Optional |
+| `04_silver_order_items_clean.png` | Valid Silver order items preview | Optional |
+| `05_silver_delta_history.png` | Delta history for Silver outputs | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- Bronze data was transformed into typed and validated Silver tables.
+- Invalid records were separated into `silver_rejected_records`.
+- Referential validation worked.
+- Business validation rules were applied.
+
+#### Expected Silver Counts
+
+| Table | Expected row count |
+|---|---:|
+| `silver_customers_clean` | 9 |
+| `silver_products_clean` | 4 |
+| `silver_orders_clean` | 7 |
+| `silver_order_items_clean` | 8 |
+| `silver_rejected_records` | 6 |
+
+#### Expected Rejected Records
+
+| Entity | Rejection reason | Expected count |
+|---|---|---:|
+| `orders` | `currency_code_is_not_allowed` | 1 |
+| `orders` | `customer_id_not_found` | 1 |
+| `orders` | `order_status_is_not_allowed` | 1 |
+| `order_items` | `order_id_not_found_or_parent_order_rejected` | 3 |
+
+### 7. Gold Dimensions Evidence
+
+Folder:
+
+`evidence/05_gold_dimensions/`
+
+This evidence should demonstrate that the project created analytical dimensions, including SCD Type 2 customer history.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_gold_customer_scd2_versions.png` | Customer SCD2 versions for customers with historical changes | Required |
+| `02_gold_customer_current_validation.png` | Validation showing one current record per customer | Required |
+| `03_gold_product_dimension.png` | Product dimension before or after MERGE | Optional |
+| `04_gold_dimensions_summary.png` | Gold dimensions row-count summary | Required |
+| `05_gold_dimensions_delta_history.png` | Delta history for Gold dimension tables | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The project created a Gold customer dimension.
+- Customer history is preserved using SCD Type 2.
+- Each customer has exactly one current version.
+- A product dimension was created for analytical use and MERGE demonstration.
+
+#### Expected Gold Dimension Counts
+
+| Table | Expected row count |
+|---|---:|
+| `gold_dim_customer_scd2` | 9 |
+| `gold_dim_product` | 4 before MERGE, 5 after MERGE |
+
+### 8. Gold Facts Evidence
+
+Folder:
+
+`evidence/06_gold_facts/`
+
+This evidence should demonstrate that the project created fact and analytical summary tables.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_gold_fact_orders.png` | Fact table preview showing order-level metrics | Required |
+| `02_fact_orders_scd2_join.png` | Fact orders joined to historical customer SCD2 version | Required |
+| `03_gold_daily_sales_summary.png` | Daily sales summary by date and currency | Required |
+| `04_gold_customer_sales_summary.png` | Customer sales summary | Required |
+| `05_gold_facts_summary.png` | Gold fact and summary row counts | Required |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The project created an order-level fact table.
+- Order updates were handled using latest valid order state.
+- The fact table joins to the correct historical customer version.
+- Analytical summaries were created for daily sales and customer sales.
+- Gold tables are ready for analytical consumption.
+
+#### Expected Gold Fact and Summary Counts
+
+| Table | Expected row count |
+|---|---:|
+| `gold_fact_orders` | 6 |
+| `gold_daily_sales_summary` | 4 |
+| `gold_customer_sales_summary` | 6 |
+
+### 9. Delta MERGE Evidence
+
+Folder:
+
+`evidence/07_delta_merge/`
+
+This evidence should demonstrate Delta MERGE / upsert behavior.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_product_dimension_before_merge.png` | Product dimension before MERGE | Optional |
+| `02_merge_source_batch.png` | Source update batch containing `PROD-002` and `PROD-005` | Optional |
+| `03_product_dimension_after_merge.png` | Product dimension after MERGE | Required |
+| `04_merge_row_count_validation.png` | Validation showing 5 total and 5 distinct products | Required |
+| `05_delta_history_merge_operation.png` | Delta history showing `MERGE` operation | Required |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- `PROD-002` was updated.
+- `PROD-005` was inserted.
+- No duplicate product IDs were created.
+- Delta Lake recorded the operation as a `MERGE`.
+
+#### Expected MERGE Results
+
+| Product | Expected result |
+|---|---|
+| `PROD-002` | Existing product updated |
+| `PROD-005` | New product inserted |
+
+### 10. Time Travel Evidence
+
+Folder:
+
+`evidence/08_time_travel/`
+
+This evidence should demonstrate that Delta versions can be queried before and after MERGE.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_delta_history_versions.png` | Delta history showing table versions | Required |
+| `02_version_count_comparison.png` | Before/after product count comparison | Required |
+| `03_affected_products_comparison.png` | Before/after comparison for `PROD-002` and `PROD-005` | Required |
+| `04_product_insert_validation.png` | Validation that `PROD-005` did not exist before and exists after MERGE | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- Delta Lake supports versioned reads.
+- The product table can be read before and after MERGE.
+- `PROD-002` changed from `35.00` to `38.00`.
+- `PROD-005` appears after MERGE.
+- Delta time travel supports validation and debugging.
+
+#### Expected Time Travel Results
+
+| Validation | Expected result |
+|---|---|
+| Product count before MERGE | 4 |
+| Product count after MERGE | 5 |
+| `PROD-002` before MERGE | `35.00` |
+| `PROD-002` after MERGE | `38.00` |
+| `PROD-005` before MERGE | Not present |
+| `PROD-005` after MERGE | Present |
+
+### 11. Data Quality Validation Evidence
+
+Folder:
+
+`evidence/09_data_quality_validation/`
+
+This evidence should demonstrate the final project-wide validation report.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_validation_report.png` | Final validation report showing validation names and statuses | Required |
+| `02_validation_status_summary.png` | PASS / FAIL summary | Required |
+| `03_validation_report_saved_to_metadata.png` | Confirmation that validation report was written to metadata container | Required |
+| `04_metadata_validation_report_folder.png` | ADLS listing of validation report folder | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The project was validated after execution.
+- Row counts were checked.
+- Rejected records were checked.
+- SCD2 rules were checked.
+- Duplicate prevention was checked.
+- MERGE results were checked.
+- Delta history was checked.
+- Revenue consistency was checked.
+- Validation output was persisted.
+
+#### Expected Validation Result
+
+| Status | Expected result |
+|---|---|
+| `PASS` | All validations |
+| `FAIL` | 0 validations |
+
+### 12. Cost Controls Evidence
+
+Folder:
+
+`evidence/10_cost_controls/`
+
+This evidence should demonstrate cost-aware development decisions.
+
+#### Recommended Screenshots
+
+| File | Description | Required |
+|---|---|---|
+| `01_compute_auto_termination.png` | Compute configuration showing auto-termination | Required |
+| `02_single_node_compute.png` | Compute configuration showing single-node Personal Compute | Required |
+| `03_resource_group_scope.png` | Project-specific Resource Group | Optional |
+| `04_cost_budget_or_alerts.png` | Budget or cost alert configuration if created | Optional |
+| `05_compute_terminated_after_session.png` | Compute terminated after work session | Optional |
+
+#### What This Evidence Proves
+
+This evidence proves:
+
+- The project was built with cost control in mind.
+- Interactive compute was not left running unnecessarily.
+- No pools or unnecessary SQL Warehouses were used for the MVP.
+- The Databricks compute was configured with auto-termination.
+
+### 13. Evidence Capture Checklist
+
+Use this checklist before declaring the evidence package complete.
+
+| Evidence area | Required screenshots complete |
+|---|---|
+| Environment setup | Pending |
+| Source data generation | Pending |
+| Bronze layer | Pending |
+| Silver layer | Pending |
+| Gold dimensions | Pending |
+| Gold facts | Pending |
+| Delta MERGE | Pending |
+| Time travel | Pending |
+| Data quality validation | Pending |
+| Cost controls | Pending |
+
+### 14. Public Safety Review Checklist
+
+Before committing evidence screenshots, verify:
+
+| Check | Status |
+|---|---|
+| No storage account keys visible | Pending |
+| No connection strings visible | Pending |
+| No GitHub tokens visible | Pending |
+| No Databricks tokens visible | Pending |
+| No secret values visible | Pending |
+| No billing-sensitive details visible | Pending |
+| No personal information beyond acceptable account display context | Pending |
+| Screenshots are readable | Pending |
+| Screenshots support the documentation claims | Pending |
+
+### 15. Recommended Evidence Commit Strategy
+
+Evidence should be committed in small logical batches.
+
+Recommended commits:
+
+| Commit | Scope |
+|---|---|
+| `Add environment setup evidence` | `evidence/01_environment_setup/` |
+| `Add source data and Bronze evidence` | `evidence/02_source_data_generation/`, `evidence/03_bronze_layer/` |
+| `Add Silver and rejected records evidence` | `evidence/04_silver_layer/` |
+| `Add Gold model evidence` | `evidence/05_gold_dimensions/`, `evidence/06_gold_facts/` |
+| `Add Delta MERGE and time travel evidence` | `evidence/07_delta_merge/`, `evidence/08_time_travel/` |
+| `Add validation and cost control evidence` | `evidence/09_data_quality_validation/`, `evidence/10_cost_controls/` |
+
+### 16. Evidence Completion Criteria
+
+The evidence package is considered complete when:
+
+- All required screenshots are captured.
+- Evidence file names match this index.
+- Screenshots are stored in the correct folders.
+- Screenshots are readable.
+- No sensitive data is exposed.
+- Documentation links point to the correct evidence files.
+- The final validation report shows all checks as `PASS`.
+- The repository can be reviewed by a recruiter or technical interviewer without requiring access to the Azure subscription.
