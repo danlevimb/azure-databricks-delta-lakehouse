@@ -47,15 +47,15 @@ Evidence is organized under the `evidence/` directory with the followign structu
 
 This evidence demonstrate that the project environment was created and that the notebooks can run from the Databricks Git Folder.
 
-| File | Description | Required |
-|---|---|---|
-| `01_databricks_workspace_created.png` | Azure Databricks workspace overview or confirmation | Optional |
-| `02_compute_configuration.png` | Databricks compute configuration showing runtime, single-node mode, and auto-termination | Required |
-| `03_git_folder_connected.png` | Databricks Git Folder connected to the GitHub repository | Required |
-| `04_environment_setup_success.png` | `00_environment_setup` notebook successfully listing ADLS source data | Required |
-| `05_adls_containers.png` | ADLS Gen2 containers used by the project | Optional |
+| File | Description |
+|---|---|
+| `01_databricks_workspace_created.png` | Azure Databricks workspace overview or confirmation | 
+| `02_compute_configuration.png` | Databricks compute configuration showing runtime, single-node mode, and auto-termination |
+| `03_git_folder_connected.png` | Databricks Git Folder connected to the GitHub repository |
+| `04_environment_setup_success.png` | `00_environment_setup` notebook successfully listing ADLS source data |
+| `05_adls_containers.png` | ADLS Gen2 containers used by the project |
 
-#### What this evidence proves:
+#### This evidence proves:
 
 - The project uses Azure Databricks.
 - The notebooks are executed from a Git-integrated Databricks folder.
@@ -111,7 +111,7 @@ Evidence should show or support:
 | `bronze_orders` | 10 |
 | `bronze_order_items` | 11 |
 
-### 6. Silver Layer Evidence
+### 04. Silver Layer
 
 Folder:
 
@@ -157,7 +157,7 @@ This evidence proves:
 | `orders` | `order_status_is_not_allowed` | 1 |
 | `order_items` | `order_id_not_found_or_parent_order_rejected` | 3 |
 
-### 7. Gold Dimensions Evidence
+### 05. Gold Dimensions
 
 Folder:
 
@@ -191,7 +191,7 @@ This evidence proves:
 | `gold_dim_customer_scd2` | 9 |
 | `gold_dim_product` | 4 before MERGE, 5 after MERGE |
 
-### 8. Gold Facts Evidence
+### 06. Gold Facts
 
 Folder:
 
@@ -227,7 +227,7 @@ This evidence proves:
 | `gold_daily_sales_summary` | 4 |
 | `gold_customer_sales_summary` | 6 |
 
-### 9. Delta MERGE Evidence
+### 07. Delta MERGE
 
 Folder:
 
@@ -261,7 +261,7 @@ This evidence proves:
 | `PROD-002` | Existing product updated |
 | `PROD-005` | New product inserted |
 
-### 10. Time Travel Evidence
+### 08. Time Travel
 
 Folder:
 
@@ -299,7 +299,7 @@ This evidence proves:
 | `PROD-005` before MERGE | Not present |
 | `PROD-005` after MERGE | Present |
 
-### 11. Data Quality Validation Evidence
+### 09. Data Quality Validation
 
 Folder:
 
@@ -337,7 +337,7 @@ This evidence proves:
 | `PASS` | All validations |
 | `FAIL` | 0 validations |
 
-### 12. Cost Controls Evidence
+### 10. Cost Controls
 
 Folder:
 
@@ -380,22 +380,6 @@ Use this checklist before declaring the evidence package complete.
 | Time travel | Pending |
 | Data quality validation | Pending |
 | Cost controls | Pending |
-
-### 14. Public Safety Review Checklist
-
-Before committing evidence screenshots, verify:
-
-| Check | Status |
-|---|---|
-| No storage account keys visible | Pending |
-| No connection strings visible | Pending |
-| No GitHub tokens visible | Pending |
-| No Databricks tokens visible | Pending |
-| No secret values visible | Pending |
-| No billing-sensitive details visible | Pending |
-| No personal information beyond acceptable account display context | Pending |
-| Screenshots are readable | Pending |
-| Screenshots support the documentation claims | Pending |
 
 ### 15. Recommended Evidence Commit Strategy
 
