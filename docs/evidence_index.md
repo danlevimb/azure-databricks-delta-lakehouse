@@ -66,14 +66,14 @@ This evidence demonstrate that the project environment was created and that the 
 
 This evidence demonstrate that the controlled source files were generated in the `landing` container.
 
-| File | Description | Required |
-|---|---|---|
-| `01_source_data_folders.png` | ADLS or Databricks listing showing `batch_001`, `batch_002`, and `batch_003_schema_evolution` | Required |
-| `02_batch_001_files.png` | Source files generated for `batch_001` | Optional |
-| `03_generate_sample_data_success.png` | Successful output of `01_generate_sample_data` notebook | Required |
-| `04_sample_customers_preview.png` | Preview of generated customer source data | Optional |
+| File | Description |
+|------|-------------|
+| `01_source_data_folders.png` | ADLS or Databricks listing showing `batch_001`, `batch_002`, and `batch_003_schema_evolution` |
+| `02_batch_001_files.png` | Source files generated for `batch_001` |
+| `03_generate_sample_data_success.png` | Successful output of `01_generate_sample_data` notebook |
+| `04_sample_customers_preview.png` | Preview of generated customer source data |
 
-#### What this evidence proves:
+#### This evidence proves:
 
 - The sample dataset was generated successfully.
 - The landing zone contains multiple source batches.
