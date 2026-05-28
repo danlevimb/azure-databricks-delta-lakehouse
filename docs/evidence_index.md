@@ -183,22 +183,16 @@ This evidence demonstrate Delta MERGE / upsert behavior.
 
 ### 08. Time Travel
 
-Folder:
+This evidence demonstrate that Delta versions can be queried before and after MERGE.
 
-`evidence/08_time_travel/`
+| File | Description |
+|------|-------------|
+| `01_delta_history_versions.png` | Delta history showing table versions |
+| `02_version_count_comparison.png` | Before/after product count comparison |
+| `03_affected_products_comparison.png` | Before/after comparison for `PROD-002` and `PROD-005` |
+| `04_product_insert_validation.png` | Validation that `PROD-005` did not exist before and exists after MERGE |
 
-This evidence should demonstrate that Delta versions can be queried before and after MERGE.
-
-#### Recommended Screenshots
-
-| File | Description | Required |
-|---|---|---|
-| `01_delta_history_versions.png` | Delta history showing table versions | Required |
-| `02_version_count_comparison.png` | Before/after product count comparison | Required |
-| `03_affected_products_comparison.png` | Before/after comparison for `PROD-002` and `PROD-005` | Required |
-| `04_product_insert_validation.png` | Validation that `PROD-005` did not exist before and exists after MERGE | Optional |
-
-#### What this evidence proves:
+#### This evidence proves:
 
 This evidence proves:
 
@@ -208,26 +202,9 @@ This evidence proves:
 - `PROD-005` appears after MERGE.
 - Delta time travel supports validation and debugging.
 
-#### Expected Time Travel Results
-
-| Validation | Expected result |
-|---|---|
-| Product count before MERGE | 4 |
-| Product count after MERGE | 5 |
-| `PROD-002` before MERGE | `35.00` |
-| `PROD-002` after MERGE | `38.00` |
-| `PROD-005` before MERGE | Not present |
-| `PROD-005` after MERGE | Present |
-
 ### 09. Data Quality Validation
 
-Folder:
-
-`evidence/09_data_quality_validation/`
-
 This evidence should demonstrate the final project-wide validation report.
-
-#### Recommended Screenshots
 
 | File | Description | Required |
 |---|---|---|
