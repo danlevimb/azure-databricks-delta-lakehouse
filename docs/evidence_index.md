@@ -102,7 +102,7 @@ This evidence proves:
 
 ### 04. Silver Layer
 
-This evidence should demonstrate that Silver transformations created clean records and rejected invalid records.
+This evidence demonstrate that Silver transformations created clean records and rejected invalid records.
 
 | File | Description |
 |------|-------------|
@@ -121,7 +121,7 @@ This evidence should demonstrate that Silver transformations created clean recor
 
 ### 05. Gold Dimensions
 
-This evidence should demonstrate that the project created analytical dimensions, including SCD Type 2 customer history.
+This evidence demonstrate that the project created analytical dimensions, including SCD Type 2 customer history.
 
 | File | Description |
 |------|-------------|
@@ -142,7 +142,7 @@ This evidence proves:
 
 ### 06. Gold Facts
 
-This evidence should demonstrate that the project created fact and analytical summary tables.
+This evidence demonstrate that the project created fact and analytical summary tables.
 
 | File | Description |
 |------|-------------|
@@ -162,47 +162,24 @@ This evidence proves:
 - Analytical summaries were created for daily sales and customer sales.
 - Gold tables are ready for analytical consumption.
 
-#### Expected Gold Fact and Summary Counts
-
-| Table | Expected row count |
-|---|---:|
-| `gold_fact_orders` | 6 |
-| `gold_daily_sales_summary` | 4 |
-| `gold_customer_sales_summary` | 6 |
-
 ### 07. Delta MERGE
 
-Folder:
+This evidence demonstrate Delta MERGE / upsert behavior.
 
-`evidence/07_delta_merge/`
+| File | Description |
+|------|-------------|
+| `01_product_dimension_before_merge.png` | Product dimension before MERGE |
+| `02_merge_source_batch.png` | Source update batch containing `PROD-002` and `PROD-005` |
+| `03_product_dimension_after_merge.png` | Product dimension after MERGE |
+| `04_merge_row_count_validation.png` | Validation showing 5 total and 5 distinct products |
+| `05_delta_history_merge_operation.png` | Delta history showing `MERGE` operation |
 
-This evidence should demonstrate Delta MERGE / upsert behavior.
-
-#### Recommended Screenshots
-
-| File | Description | Required |
-|---|---|---|
-| `01_product_dimension_before_merge.png` | Product dimension before MERGE | Optional |
-| `02_merge_source_batch.png` | Source update batch containing `PROD-002` and `PROD-005` | Optional |
-| `03_product_dimension_after_merge.png` | Product dimension after MERGE | Required |
-| `04_merge_row_count_validation.png` | Validation showing 5 total and 5 distinct products | Required |
-| `05_delta_history_merge_operation.png` | Delta history showing `MERGE` operation | Required |
-
-#### What this evidence proves:
-
-This evidence proves:
+#### This evidence proves:
 
 - `PROD-002` was updated.
 - `PROD-005` was inserted.
 - No duplicate product IDs were created.
 - Delta Lake recorded the operation as a `MERGE`.
-
-#### Expected MERGE Results
-
-| Product | Expected result |
-|---|---|
-| `PROD-002` | Existing product updated |
-| `PROD-005` | New product inserted |
 
 ### 08. Time Travel
 
