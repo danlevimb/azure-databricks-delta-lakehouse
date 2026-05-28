@@ -119,44 +119,19 @@ This evidence should demonstrate that Silver transformations created clean recor
 - Referential validation worked.
 - Business validation rules were applied.
 
-#### Expected Silver Counts
-
-| Table | Expected row count |
-|---|---:|
-| `silver_customers_clean` | 9 |
-| `silver_products_clean` | 4 |
-| `silver_orders_clean` | 7 |
-| `silver_order_items_clean` | 8 |
-| `silver_rejected_records` | 6 |
-
-#### Expected Rejected Records
-
-| Entity | Rejection reason | Expected count |
-|---|---|---:|
-| `orders` | `currency_code_is_not_allowed` | 1 |
-| `orders` | `customer_id_not_found` | 1 |
-| `orders` | `order_status_is_not_allowed` | 1 |
-| `order_items` | `order_id_not_found_or_parent_order_rejected` | 3 |
-
 ### 05. Gold Dimensions
-
-Folder:
-
-`evidence/05_gold_dimensions/`
 
 This evidence should demonstrate that the project created analytical dimensions, including SCD Type 2 customer history.
 
-#### Recommended Screenshots
+| File | Description |
+|------|-------------|
+| `01_gold_customer_scd2_versions.png` | Customer SCD2 versions for customers with historical changes |
+| `02_gold_customer_current_validation.png` | Validation showing one current record per customer |
+| `03_gold_product_dimension.png` | Product dimension before or after MERGE |
+| `04_gold_dimensions_summary.png` | Gold dimensions row-count summary |
+| `05_gold_dimensions_delta_history.png` | Delta history for Gold dimension tables |
 
-| File | Description | Required |
-|---|---|---|
-| `01_gold_customer_scd2_versions.png` | Customer SCD2 versions for customers with historical changes | Required |
-| `02_gold_customer_current_validation.png` | Validation showing one current record per customer | Required |
-| `03_gold_product_dimension.png` | Product dimension before or after MERGE | Optional |
-| `04_gold_dimensions_summary.png` | Gold dimensions row-count summary | Required |
-| `05_gold_dimensions_delta_history.png` | Delta history for Gold dimension tables | Optional |
-
-#### What this evidence proves:
+#### This evidence proves:
 
 This evidence proves:
 
@@ -164,13 +139,6 @@ This evidence proves:
 - Customer history is preserved using SCD Type 2.
 - Each customer has exactly one current version.
 - A product dimension was created for analytical use and MERGE demonstration.
-
-#### Expected Gold Dimension Counts
-
-| Table | Expected row count |
-|---|---:|
-| `gold_dim_customer_scd2` | 9 |
-| `gold_dim_product` | 4 before MERGE, 5 after MERGE |
 
 ### 06. Gold Facts
 
@@ -182,15 +150,15 @@ This evidence should demonstrate that the project created fact and analytical su
 
 #### Recommended Screenshots
 
-| File | Description | Required |
-|---|---|---|
-| `01_gold_fact_orders.png` | Fact table preview showing order-level metrics | Required |
-| `02_fact_orders_scd2_join.png` | Fact orders joined to historical customer SCD2 version | Required |
-| `03_gold_daily_sales_summary.png` | Daily sales summary by date and currency | Required |
-| `04_gold_customer_sales_summary.png` | Customer sales summary | Required |
-| `05_gold_facts_summary.png` | Gold fact and summary row counts | Required |
+| File | Description |
+|------|-------------|
+| `01_gold_fact_orders.png` | Fact table preview showing order-level metrics |
+| `02_fact_orders_scd2_join.png` | Fact orders joined to historical customer SCD2 version |
+| `03_gold_daily_sales_summary.png` | Daily sales summary by date and currency |
+| `04_gold_customer_sales_summary.png` | Customer sales summary |
+| `05_gold_facts_summary.png` | Gold fact and summary row counts |
 
-#### What this evidence proves:
+#### This evidence proves:
 
 This evidence proves:
 
