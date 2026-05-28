@@ -142,13 +142,7 @@ This evidence proves:
 
 ### 06. Gold Facts
 
-Folder:
-
-`evidence/06_gold_facts/`
-
 This evidence should demonstrate that the project created fact and analytical summary tables.
-
-#### Recommended Screenshots
 
 | File | Description |
 |------|-------------|
