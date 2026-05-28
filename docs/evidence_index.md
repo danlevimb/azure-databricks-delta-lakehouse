@@ -204,18 +204,16 @@ This evidence proves:
 
 ### 09. Data Quality Validation
 
-This evidence should demonstrate the final project-wide validation report.
+This evidence demonstrate the final project-wide validation report.
 
-| File | Description | Required |
-|---|---|---|
-| `01_validation_report.png` | Final validation report showing validation names and statuses | Required |
-| `02_validation_status_summary.png` | PASS / FAIL summary | Required |
-| `03_validation_report_saved_to_metadata.png` | Confirmation that validation report was written to metadata container | Required |
-| `04_metadata_validation_report_folder.png` | ADLS listing of validation report folder | Optional |
+| File | Description |
+|---|---|
+| `01_validation_report.png` | Final validation report showing validation names and statuses |
+| `02_validation_status_summary.png` | PASS / FAIL summary |
+| `03_validation_report_saved_to_metadata.png` | Confirmation that validation report was written to metadata container |
+| `04_metadata_validation_report_folder.png` | ADLS listing of validation report folder |
 
-#### What this evidence proves:
-
-This evidence proves:
+#### This evidence proves:
 
 - The project was validated after execution.
 - Row counts were checked.
@@ -226,13 +224,6 @@ This evidence proves:
 - Delta history was checked.
 - Revenue consistency was checked.
 - Validation output was persisted.
-
-#### Expected Validation Result
-
-| Status | Expected result |
-|---|---|
-| `PASS` | All validations |
-| `FAIL` | 0 validations |
 
 ### 10. Cost Controls
 
