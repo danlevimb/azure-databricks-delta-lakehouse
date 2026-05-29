@@ -26,23 +26,9 @@ The architecture is intentionally scoped as a portfolio-ready MVP, not as a full
 
 ### 2. High-Level Architecture
 
-The project uses Azure Databricks as the processing layer and Azure Data Lake Storage Gen2 as the Lakehouse storage layer.
+![Azure Databricks Delta Lakehouse Architecture](../diagrams/01_lakehouse_architecture.png)
 
-```text
-Source CSV files
-      ↓
-ADLS Gen2 landing container
-      ↓
-Azure Databricks / PySpark notebooks
-      ↓
-Bronze Delta tables
-      ↓
-Silver clean and rejected Delta tables
-      ↓
-Gold dimensions, facts, and summaries
-      ↓
-Delta MERGE, time travel, and validation reporting
-```
+The project uses Azure Databricks as the processing layer and Azure Data Lake Storage Gen2 as the Lakehouse storage layer.
 
 #### Main Components
 

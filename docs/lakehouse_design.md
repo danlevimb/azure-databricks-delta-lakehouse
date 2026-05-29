@@ -6,6 +6,8 @@ The goal is to describe why the project uses a Bronze/Silver/Gold architecture, 
 
 ### 1. Design Objective
 
+![Bronze Silver Gold Data Flow](../diagrams/02_bronze_silver_gold_flow.png)
+
 The Lakehouse design objective is to transform raw source files into trusted analytical tables through a clear and traceable data lifecycle.
 
 The project follows this logical flow:

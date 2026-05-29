@@ -1,8 +1,10 @@
 # Time Travel Validation
 
-This document describes the Delta Lake time travel validation implemented in the `azure-databricks-delta-lakehouse` project.
+This document describes the Delta Lake time travel validation implemented in the [`azure-databricks-delta-lakehouse`](../diagrams/03_delta_capabilities_flow.png) project.
 
 The time travel validation demonstrates how Delta Lake table versions can be queried to compare data states before and after a table mutation.
+
+For the full visual flow of MERGE, Delta History, and Time Travel, see `docs/delta_merge_upsert.md`.
 
 ### 1. Time Travel Objective
 

@@ -6,6 +6,8 @@ The MERGE pattern is demonstrated using the Gold product dimension.
 
 ### 1. Delta MERGE Objective
 
+![Delta Lake Capabilities Flow](../diagrams/03_delta_capabilities_flow.png)
+
 The objective of the Delta MERGE implementation is to demonstrate how a Delta table can be updated incrementally instead of being fully overwritten.
 
 In real data platforms, source data changes over time.
