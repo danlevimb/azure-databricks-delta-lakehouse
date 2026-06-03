@@ -39,3 +39,5 @@ temp/
 *_secret*
 *_key*
 *_credential*
+# Local deep dive / study notes
+deep_dive/
