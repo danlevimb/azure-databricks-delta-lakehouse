@@ -1,14 +1,82 @@
 <p align="center">
-  <img src="diagrams/banner.png" width="900"/>
+  <img src="diagrams/banner.png" width="900" alt="Azure Databricks Delta Lakehouse banner"/>
+</p>
+
+<h1 align="center">Azure Databricks Delta Lakehouse</h1>
+
+<p align="center">
+  A portfolio-ready Azure Lakehouse implementation using PySpark, Delta Lake, ADLS Gen2, Bronze/Silver/Gold processing, SCD Type 2, MERGE, Time Travel, and persisted data-quality validation.
 </p>
 
 <p align="center">
-  <h1>Azure Databricks Delta Lakehouse </h1>
+  <a href="docs/architecture.md">Architecture</a> |
+  <a href="docs/lakehouse_design.md">Lakehouse Design</a> |
+  <a href="docs/evidence_index.md">Evidence</a> |
+  <a href="docs/known_limitations.md">Limitations</a> |
+  <a href="docs/cost_controls.md">Cost Controls</a>
 </p>
 
-Portfolio-ready Azure Databricks project that implements a Delta Lakehouse architecture using PySpark, ADLS Gen2, Delta Lake, and a Bronze/Silver/Gold data processing pattern.
+---
 
-The project demonstrates how raw CSV source files can be transformed into validated, versioned, and analytics-ready Delta tables using Azure Databricks.
+## The problem
+
+A Lakehouse project is not convincing simply because it moves data through Bronze, Silver, and Gold.
+
+A technically defensible implementation also needs to answer:
+
+- How is raw data preserved and traced?
+- How are invalid records isolated without losing observability?
+- How is historical dimension state modeled correctly?
+- Can upserts be performed without creating duplicates?
+- Can previous Delta versions be inspected and validated?
+- Are final outputs checked against explicit expectations?
+- Can the design remain cost-aware and reproducible?
+
+This project focuses on those engineering questions.
+
+## The idea
+
+The implementation uses a controlled retail dataset so the emphasis stays on **Lakehouse engineering behavior rather than data volume**.
+
+The project demonstrates an end-to-end batch Lakehouse flow:
+
+```text
+Controlled CSV batches
+        ↓
+Landing
+        ↓
+Bronze Delta
+        ↓
+Silver clean + rejected
+        ↓
+Gold dimensions / facts / summaries
+        ↓
+MERGE + Time Travel
+        ↓
+Persisted validation report
+```
+
+The result is a small but technically rich Azure Databricks MVP that can be explained, validated, and defended in detail.
+
+## At a glance
+
+| Area | Implementation |
+|---|---|
+| Cloud platform | Microsoft Azure |
+| Processing | Azure Databricks |
+| Language | Python / PySpark |
+| Storage | Azure Data Lake Storage Gen2 |
+| Table format | Delta Lake |
+| Architecture | Bronze / Silver / Gold |
+| Data quality | Validated Silver + rejected records |
+| Historical modeling | Customer SCD Type 2 |
+| Upsert pattern | Delta MERGE |
+| Versioning | Delta history + Time Travel |
+| Validation | Persisted final validation report |
+| Source control | GitHub + Databricks Git Folder |
+| Compute | Single-node Personal Compute |
+| Cost approach | Auto-termination + manual shutdown |
+| Project status | Completed / portfolio-ready MVP closed |
 
 ## Project Overview
 
@@ -546,3 +614,8 @@ It shows how to:
 * Apply cost-aware Azure practices
 
 The result is a technically defensible Data Engineering portfolio project focused on Azure Databricks, PySpark, Delta Lake, and Lakehouse architecture.
+
+
+## Status
+
+**Completed / portfolio-ready MVP closed.**
